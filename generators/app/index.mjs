@@ -17,7 +17,7 @@ export default class AppGenerator extends Generator {
     const templateDir = this.answers.template;
     // Copy everything from the selected template folder
     this.fs.copy(
-      this.templatePath(`templates/${templateDir}`),
+      this.templatePath(`${templateDir}`),
       this.destinationPath()
     );
   }
