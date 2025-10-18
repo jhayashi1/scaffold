@@ -1,0 +1,19 @@
+{
+  "name": "generator-jhayashi-scaffold",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/index.mjs",
+  "type": "module",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^7.5.1"
+  },
+  "files": [
+    "app"
+  ],
+  "engines": {
+    "node": "24.10.0"
+  }
+}
