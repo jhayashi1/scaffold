@@ -1,0 +1,32 @@
+{
+    "name": "INSERT_NAME_HERE",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.tsx",
+    "type": "module",
+    "scripts": {
+        "start": "vite",
+        "build": "vite build",
+        "lint": "eslint .",
+        "types": "tsc --noEmit"
+    },
+    "engines": {
+        "node": "24.10.0"
+    },
+    "author": "jhayashi1",
+    "dependencies": {
+        "pino-lambda": "4.4.1"
+    },
+    "devDependencies": {
+        "@eslint/js": "9.38.0",
+        "@stylistic/eslint-plugin": "5.4.0",
+        "@types/aws-lambda": "8.10.156",
+        "@types/node": "24.8.1",
+        "@typescript-eslint/eslint-plugin": "8.46.1",
+        "@typescript-eslint/parser": "8.46.1",
+        "esbuild": "0.25.11",
+        "eslint": "9.38.0",
+        "globals": "16.4.0",
+        "typescript": "5.9.3"
+    }
+}
