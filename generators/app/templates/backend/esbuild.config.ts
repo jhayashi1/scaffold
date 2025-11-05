@@ -1,18 +1,18 @@
 import type {BuildOptions} from 'esbuild';
 
 export default {
+    bundle           : true,
     entryPoints      : ['lambda/index.ts'],
     format           : 'esm',
-    platform         : 'node',
-    target           : 'node24.10',
-    outdir           : 'dist/lambda',
-    loader           : {'.html': 'text', '.css': 'text'},
-    bundle           : true,
+    keepNames        : true,
+    loader           : {'.css': 'text', '.html': 'text'},
+    logLevel         : 'info',
+    minifyIdentifiers: false,
     minifySyntax     : true,
     minifyWhitespace : true,
-    minifyIdentifiers: false,
-    keepNames        : true,
+    outdir           : 'dist/lambda',
+    platform         : 'node',
     sourcemap        : true,
     sourcesContent   : false,
-    logLevel         : 'info',
+    target           : 'node24.10',
 } satisfies BuildOptions;

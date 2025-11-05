@@ -1,31 +1,46 @@
-import react from 'eslint-plugin-react';
-import parser from '@typescript-eslint/parser';
-import stylistic from '@stylistic/eslint-plugin';
-import TypeScriptESLint from '@typescript-eslint/eslint-plugin';
 import js from '@eslint/js';
+import stylistic from '@stylistic/eslint-plugin';
+import eslintPluginQuery from '@tanstack/eslint-plugin-query';
+import eslintPluginRouter from '@tanstack/eslint-plugin-router';
+import TypeScriptESLint from '@typescript-eslint/eslint-plugin';
+import parser from '@typescript-eslint/parser';
+import eslintPluginImport from 'eslint-plugin-import';
+import eslintPluginPerfectionist from 'eslint-plugin-perfectionist';
+import eslintPluginReact from 'eslint-plugin-react';
+import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
+import eslintPluginReactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const commonRules = {
     ...js.configs.recommended.rules,
+    ...(eslintPluginImport.flatConfigs.recommended?.rules ?? eslintPluginImport.flatConfigs.recommended),
+    ...(eslintPluginPerfectionist.configs['recommended-natural']?.rules ?? eslintPluginPerfectionist.configs['recommended-natural']),
     'comma-dangle': [2, {
         arrays   : 'always-multiline',
-        imports  : 'never',
         exports  : 'never',
         functions: 'never',
+        imports  : 'never',
         objects  : 'always-multiline',
     }],
-    'comma-spacing'       : [2, {before: false, after: true}],
+    'comma-spacing'       : [2, {after: true, before: false}],
     'eol-last'            : 2,
+    'import/no-unresolved': 0,
     'key-spacing'         : [2, {align: 'colon'}],
+    'new-cap'             : [2, {capIsNew: false}],
     'no-multi-spaces'     : [2, {exceptions: {Property: true, TSPropertySignature: true}}],
     'no-trailing-spaces'  : 2,
     'no-unused-vars'      : 0,
     'object-curly-newline': [2, {
         ObjectExpression: {
-            multiline: true, minProperties: 0, consistent: true,
+            consistent: true, minProperties: 0, multiline: true,
         },
         ObjectPattern: {
-            multiline: true, minProperties: 0, consistent: true,
+            consistent: true, minProperties: 0, multiline: true,
         },
     }],
     'object-curly-spacing': [2, 'never'],
@@ -37,10 +52,11 @@ const commonRules = {
 };
 
 const typescriptRules = {
-    ...TypeScriptESLint.configs.eslintRecommended,
-    ...TypeScriptESLint.configs.recommendedTypeChecked,
-    ...TypeScriptESLint.configs.strictTypeChecked,
-    'new-cap'                                         : [2, {capIsNew: false}],
+    ...(TypeScriptESLint.configs.eslintRecommended?.rules ?? TypeScriptESLint.configs.eslintRecommended),
+    ...(TypeScriptESLint.configs.recommendedTypeChecked?.rules ?? TypeScriptESLint.configs.recommendedTypeChecked),
+    ...(TypeScriptESLint.configs.strictTypeChecked?.rules ?? TypeScriptESLint.configs.strictTypeChecked),
+    ...(eslintPluginImport.flatConfigs.typescript?.rules ?? eslintPluginImport.flatConfigs.typescript),
+    '@stylistic/indent'                               : [2, 4],
     '@typescript-eslint/consistent-type-definitions'  : 2,
     '@typescript-eslint/consistent-type-exports'      : 2,
     '@typescript-eslint/consistent-type-imports'      : 2,
@@ -52,70 +68,94 @@ const typescriptRules = {
     '@typescript-eslint/no-explicit-any'             : 0,
     '@typescript-eslint/no-extraneous-class'         : [2, {allowWithDecorator: true}],
     '@typescript-eslint/no-non-null-assertion'       : 1,
-    'no-use-before-define'                           : 0,
-    '@typescript-eslint/no-use-before-define'        : 0,
     '@typescript-eslint/no-unsafe-assignment'        : 1,
     '@typescript-eslint/no-unsafe-call'              : 1,
-    'no-unused-expressions'                          : 0,
     '@typescript-eslint/no-unused-expressions'       : [2, {allowTernary: true}],
-    '@typescript-eslint/no-unused-vars'              : [2, {varsIgnorePattern: '^_', argsIgnorePattern: '^_'}],
+    '@typescript-eslint/no-unused-vars'              : [2, {argsIgnorePattern: '^_', varsIgnorePattern: '^_'}],
+    '@typescript-eslint/no-use-before-define'        : 0,
     '@typescript-eslint/prefer-reduce-type-parameter': 0,
     '@typescript-eslint/promise-function-async'      : 2,
-    'no-return-await'                                : 0,
     '@typescript-eslint/return-await'                : [2, 'always'],
-    '@stylistic/indent'                              : [2, 4],
+    'no-return-await'                                : 0,
+    'no-unused-expressions'                          : 0,
+    'no-use-before-define'                           : 0,
 };
 
 const reactRules = {
-    'react/jsx-first-prop-new-line': [2, 'multiline'],
-    'react/jsx-max-props-per-line' : [2, {when: 'always', maximum: 1}],
-    'react/jsx-curly-newline'      : [2, {multiline: 'consistent', singleline: 'consistent'}],
-    'react/jsx-sort-props'         : [2,
+    ...(eslintPluginReact.configs.flat.recommended?.rules ?? eslintPluginReact.configs.flat.recommended),
+    ...(eslintPluginReact.configs.flat['jsx-runtime']?.rules ?? eslintPluginReact.configs.flat['jsx-runtime']),
+    ...(eslintPluginReactHooks.configs.recommended?.rules ?? {}),
+    ...(eslintPluginReactRefresh.configs.vite?.rules ?? {}),
+    ...(eslintPluginQuery.configs['flat/recommended']?.rules ?? {}),
+    ...(eslintPluginRouter.configs['flat/recommended']?.rules ?? {}),
+    'jsx-quotes'                        : [2, 'prefer-single'],
+    'react/jsx-closing-bracket-location': [2, 'line-aligned'],
+    'react/jsx-curly-newline'           : [2, {multiline: 'consistent', singleline: 'consistent'}],
+    'react/jsx-first-prop-new-line'     : [2, 'multiline'],
+    'react/jsx-max-props-per-line'      : [2, {maximum: 1, when: 'always'}],
+    'react/jsx-sort-props'              : [2,
         {
             callbacksLast       : true,
-            shorthandFirst      : true,
-            shorthandLast       : false,
             ignoreCase          : true,
             noSortAlphabetically: false,
+            shorthandFirst      : true,
+            shorthandLast       : false,
         },
     ],
     'react/jsx-tag-spacing': [2,
         {
-            beforeSelfClosing: 'always',
             afterOpening     : 'never',
             beforeClosing    : 'never',
+            beforeSelfClosing: 'always',
         },
     ],
-    'jsx-quotes'                        : [2, 'prefer-single'],
-    'react/jsx-closing-bracket-location': [2, 'line-aligned'],
 };
 
 export default [
     {
         files          : ['**/*.js', '**/*.mjs'],
-        plugins        : {react},
+        ignores        : ['dist/**', 'node_modules/**'],
         languageOptions: {
-            parserOptions: {ecmaVersion: 'latest', sourceType: 'module'},
             globals      : {...globals.node, ...globals.es2021, ...globals.browser},
+            parserOptions: {ecmaVersion: 'latest', sourceType: 'module'},
         },
-        rules  : {...commonRules, ...reactRules},
-        ignores: ['dist/**'],
+        plugins: {
+            '@stylistic'      : stylistic,
+            '@tanstack/query' : eslintPluginQuery,
+            '@tanstack/router': eslintPluginRouter,
+            import            : eslintPluginImport,
+            perfectionist     : eslintPluginPerfectionist,
+            react             : eslintPluginReact,
+            'react-hooks'     : eslintPluginReactHooks,
+            'react-refresh'   : eslintPluginReactRefresh,
+        },
+        rules: {...commonRules, ...reactRules},
     },
     {
         files          : ['**/*.ts', '**/*.tsx'],
-        plugins        : {react, '@typescript-eslint': TypeScriptESLint, '@stylistic': stylistic},
+        ignores        : ['dist/**', 'node_modules/**'],
         languageOptions: {
+            globals      : {...globals.node, ...globals.es2021, ...globals.browser},
             parser,
             parserOptions: {
                 ecmaFeatures   : {modules: true},
                 ecmaVersion    : 'latest',
-                sourceType     : 'module',
                 project        : 'tsconfig.eslint.json',
-                tsconfigRootDir: './',
+                sourceType     : 'module',
+                tsconfigRootDir: __dirname,
             },
-            globals: {...globals.node, ...globals.es2021, ...globals.browser},
         },
-        rules  : {...commonRules, ...typescriptRules, ...reactRules},
-        ignores: ['dist/**'],
+        plugins: {
+            '@stylistic'        : stylistic,
+            '@tanstack/query'   : eslintPluginQuery,
+            '@tanstack/router'  : eslintPluginRouter,
+            '@typescript-eslint': TypeScriptESLint,
+            import              : eslintPluginImport,
+            perfectionist       : eslintPluginPerfectionist,
+            react               : eslintPluginReact,
+            'react-hooks'       : eslintPluginReactHooks,
+            'react-refresh'     : eslintPluginReactRefresh,
+        },
+        rules: {...commonRules, ...typescriptRules, ...reactRules},
     },
 ];
