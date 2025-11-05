@@ -93,16 +93,7 @@ const reactRules = {
     'react/jsx-curly-newline'           : [2, {multiline: 'consistent', singleline: 'consistent'}],
     'react/jsx-first-prop-new-line'     : [2, 'multiline'],
     'react/jsx-max-props-per-line'      : [2, {maximum: 1, when: 'always'}],
-    'react/jsx-sort-props'              : [2,
-        {
-            callbacksLast       : true,
-            ignoreCase          : true,
-            noSortAlphabetically: false,
-            shorthandFirst      : true,
-            shorthandLast       : false,
-        },
-    ],
-    'react/jsx-tag-spacing': [2,
+    'react/jsx-tag-spacing'             : [2,
         {
             afterOpening     : 'never',
             beforeClosing    : 'never',
