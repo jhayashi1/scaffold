@@ -15,10 +15,11 @@ export default class AppGenerator extends Generator {
 
   writing() {
     const templateDir = this.answers.template;
-    // Copy everything from the selected template folder
+    // Copy everything from the selected template folder, including dotfiles
     this.fs.copy(
       this.templatePath(`${templateDir}`),
-      this.destinationPath()
+      this.destinationPath(),
+      {globOptions: {dot: true}}
     );
   }
 }
