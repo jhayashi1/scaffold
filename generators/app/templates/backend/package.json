@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.tsx",
     "type": "module",
-    "packageManager": "pnpm@10.18.3",
+    "packageManager": "pnpm@10.28.1",
     "scripts": {
         "start": "vite",
         "build": "vite build",
@@ -12,24 +12,24 @@
         "types": "tsc --noEmit"
     },
     "engines": {
-        "node": "24.10.0"
+        "node": "24.13.0"
     },
     "author": "jhayashi1",
     "dependencies": {
         "pino-lambda": "4.4.1"
     },
     "devDependencies": {
-        "@eslint/js": "9.38.0",
-        "@stylistic/eslint-plugin": "5.4.0",
-        "@types/aws-lambda": "8.10.156",
-        "@types/node": "24.8.1",
-        "@typescript-eslint/eslint-plugin": "8.46.1",
-        "@typescript-eslint/parser": "8.46.1",
-        "esbuild": "0.25.11",
-        "eslint": "9.38.0",
+        "@eslint/js": "9.39.2",
+        "@stylistic/eslint-plugin": "5.7.0",
+        "@types/aws-lambda": "8.10.160",
+        "@types/node": "25.0.10",
+        "@typescript-eslint/eslint-plugin": "8.53.1",
+        "@typescript-eslint/parser": "8.53.1",
+        "esbuild": "0.27.2",
+        "eslint": "9.39.2",
         "eslint-plugin-import": "2.32.0",
-        "eslint-plugin-perfectionist": "4.15.1",
-        "globals": "16.4.0",
+        "eslint-plugin-perfectionist": "5.4.0",
+        "globals": "17.0.0",
         "typescript": "5.9.3"
     }
 }

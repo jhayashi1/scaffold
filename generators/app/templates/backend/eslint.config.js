@@ -14,7 +14,8 @@ const __dirname = path.dirname(__filename);
 const commonRules = {
     ...js.configs.recommended.rules,
     ...(eslintPluginImport.flatConfigs.recommended?.rules ?? eslintPluginImport.flatConfigs.recommended),
-    ...(eslintPluginPerfectionist.configs['recommended-natural']?.rules ?? eslintPluginPerfectionist.configs['recommended-natural']),
+    // eslint-disable-next-line import/no-named-as-default-member
+    ...eslintPluginPerfectionist.configs['recommended-natural'].rules,
     'comma-dangle': [2, {
         arrays   : 'always-multiline',
         exports  : 'never',
@@ -24,6 +25,7 @@ const commonRules = {
     }],
     'comma-spacing'       : [2, {after: true, before: false}],
     'eol-last'            : 2,
+    'func-style'          : [2, 'expression'],
     'import/no-unresolved': 0,
     'key-spacing'         : [2, {align: 'colon'}],
     'new-cap'             : [2, {capIsNew: false}],
@@ -38,12 +40,13 @@ const commonRules = {
             consistent: true, minProperties: 0, multiline: true,
         },
     }],
-    'object-curly-spacing': [2, 'never'],
-    'object-shorthand'    : [2, 'always'],
-    'prefer-template'     : 2,
-    'quote-props'         : [2, 'as-needed'],
-    quotes                : [2, 'single'],
-    semi                  : 2,
+    'object-curly-spacing' : [2, 'never'],
+    'object-shorthand'     : [2, 'always'],
+    'prefer-arrow-callback': 2,
+    'prefer-template'      : 2,
+    'quote-props'          : [2, 'as-needed'],
+    quotes                 : [2, 'single'],
+    semi                   : 2,
 };
 
 const typescriptRules = {
@@ -68,6 +71,7 @@ const typescriptRules = {
     '@typescript-eslint/no-unused-expressions'       : [2, {allowTernary: true}],
     '@typescript-eslint/no-unused-vars'              : [2, {argsIgnorePattern: '^_', varsIgnorePattern: '^_'}],
     '@typescript-eslint/no-use-before-define'        : 0,
+    '@typescript-eslint/prefer-nullish-coalescing'   : 2,
     '@typescript-eslint/prefer-reduce-type-parameter': 0,
     '@typescript-eslint/promise-function-async'      : 2,
     '@typescript-eslint/return-await'                : [2, 'always'],
